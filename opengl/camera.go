@@ -2,7 +2,6 @@ package opengl
 
 import (
 	"3d-tile-editor/window"
-	"fmt"
 	"github.com/go-gl/mathgl/mgl32"
 	"github.com/go-gl/mathgl/mgl64"
 	"math"
@@ -101,12 +100,6 @@ func (c *Camera) updateVectors() {
 // this camera's coordinates.
 func (camera *Camera) GetTransform() mgl32.Mat4 {
 	cameraTarget := camera.pos.Add(camera.front)
-
-	fmt.Println(mgl32.LookAt(
-		camera.pos.X(), camera.pos.Y(), camera.pos.Z(),
-		cameraTarget.X(), cameraTarget.Y(), cameraTarget.Z(),
-		camera.up.X(), camera.up.Y(), camera.up.Z(),
-	))
 
 	return mgl32.LookAt(
 		camera.pos.X(), camera.pos.Y(), camera.pos.Z(),

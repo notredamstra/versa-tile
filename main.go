@@ -75,13 +75,13 @@ func main(){
 	}
 
 	// Start the actual application loop
-	err := programLoop(window)
+	err := update(window)
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
 
-func programLoop(window *window.Window) error {
+func update(window *window.Window) error {
 	vertShader, err := opengl.NewShaderFromFile("assets/shaders/basic.vert.glsl", gl.VERTEX_SHADER)
 	if err != nil {
 		return err
@@ -102,12 +102,12 @@ func programLoop(window *window.Window) error {
 
 	defer program.Delete()
 
-	model := opengl.NewModel("assets/models/DiscoCharacter.obj")
+	shape := opengl.NewSimpleShape(cubeVertices)
 
 	// Ensure that triangles that are "behind" others do not show in front
 	gl.Enable(gl.DEPTH_TEST)
 
-	camera := opengl.NewCamera(mgl32.Vec3{0, 3, 3}, mgl32.Vec3{0, 1, 0}, -90, 0, window.InputManager())
+	camera := opengl.NewCamera(mgl32.Vec3{0, -5, 5}, mgl32.Vec3{0, 1, 0}, -90, 0, window.InputManager())
 
 	for !window.ShouldClose() {
 
@@ -131,7 +131,7 @@ func programLoop(window *window.Window) error {
 		gl.ClearColor(0, 0, 0, 1.0)
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)  // depth buffer needed for DEPTH_TEST
 
-		model.Draw(program, camera, window)
+		shape.Draw(program, camera, window)
 	}
 
 	return nil
