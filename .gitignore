@@ -1,0 +1,17 @@
+# Editor files
+.idea
+
+# Binaries, plugins, libs
+*.dll
+*.dylib
+*.exe
+*.exe~
+*.so
+
+# Testing
+*.test
+*.tmp
+
+# Assets
+assets/models/*
+assets/textures/*
