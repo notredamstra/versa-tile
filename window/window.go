@@ -29,6 +29,7 @@ func NewWindow(width, height int, title string) *Window {
 	glfw.WindowHint(glfw.ContextVersionMinor, 1)
 	glfw.WindowHint(glfw.OpenGLProfile, glfw.OpenGLCoreProfile)
 	glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
+	glfw.WindowHint(glfw.OpenGLDebugContext, glfw.True)
 
 	gWindow, err := glfw.CreateWindow(width, height, title, nil, nil)
 	if err != nil {

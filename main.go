@@ -107,7 +107,7 @@ func programLoop(window *window.Window) error {
 	// Ensure that triangles that are "behind" others do not show in front
 	gl.Enable(gl.DEPTH_TEST)
 
-	camera := opengl.NewCamera(mgl32.Vec3{3, 3, 3}, mgl32.Vec3{0, 0, 0}, -90, 0, window.InputManager())
+	camera := opengl.NewCamera(mgl32.Vec3{0, 3, 3}, mgl32.Vec3{0, 1, 0}, -90, 0, window.InputManager())
 
 	for !window.ShouldClose() {
 
@@ -115,6 +115,18 @@ func programLoop(window *window.Window) error {
 
 		// update camera position and direction
 		camera.Update(window.SinceLastFrame())
+
+		// creates perspective camera
+		fov := float32(60.0)
+
+		projectionTransform := mgl32.Perspective(mgl32.DegToRad(fov),
+			float32(window.Width())/float32(window.Height()),
+			0.1,
+			10.0)
+		camTransform := camera.GetTransform()
+		gl.UniformMatrix4fv(program.GetUniformLocation("projection"), 1, false,
+			&projectionTransform[0])
+		gl.UniformMatrix4fv(program.GetUniformLocation("camera"), 1, false, &camTransform[0])
 
 		gl.ClearColor(0, 0, 0, 1.0)
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)  // depth buffer needed for DEPTH_TEST

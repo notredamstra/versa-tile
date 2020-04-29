@@ -140,19 +140,8 @@ func (model *Model) Draw(program *Program, camera *Camera, window *window.Window
 
 	program.Use()
 
-	// creates perspective camera
-	fov := float32(60.0)
-
-	projectionTransform := mgl32.Perspective(mgl32.DegToRad(fov),
-		float32(window.Width())/float32(window.Height()),
-		0.1,
-		10.0)
-	camTransform := camera.GetTransform()
 	modelTransform := mgl32.Ident4()
 
-	gl.UniformMatrix4fv(program.GetUniformLocation("projection"), 1, false,
-		&projectionTransform[0])
-	gl.UniformMatrix4fv(program.GetUniformLocation("camera"), 1, false, &camTransform[0])
 	gl.UniformMatrix4fv(program.GetUniformLocation("model"), 1, false, &modelTransform[0])
 
 	gl.BindVertexArray(vao)
