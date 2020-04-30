@@ -102,7 +102,8 @@ func update(window *window.Window) error {
 
 	defer program.Delete()
 
-	shape := opengl.NewSimpleShape(cubeVertices)
+	//shape := opengl.NewSimpleShape(cubeVertices)
+	shape := opengl.NewObject("assets/models/DiscoCharacter.obj")
 
 	// Ensure that triangles that are "behind" others do not show in front
 	gl.Enable(gl.DEPTH_TEST)
