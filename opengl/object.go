@@ -108,6 +108,6 @@ func (obj *Object) Draw(program *Program, camera *Camera, window *window.Window)
 	gl.UniformMatrix4fv(program.GetUniformLocation("model"), 1, false, &modelTransform[0])
 
 	gl.BindVertexArray(vao)
-	gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
+	gl.DrawArrays(gl.TRIANGLES, 0, int32(len(obj.vecIndices)))
 	gl.BindVertexArray(0)
 }
